@@ -95,6 +95,7 @@
   form.append(
     el("input", { type: "text", name: "email_address_check", value: "", hidden: "", tabindex: "-1", autocomplete: "off" }),
     el("input", { type: "hidden", name: "locale", value: "fr" }),
+    el("input", { type: "hidden", name: "html_type", value: "simple" }),
   );
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -107,7 +108,8 @@
     bouton.textContent = "Envoi…";
     try {
       // Brevo ne renvoie pas de réponse lisible depuis une autre page : on envoie et on remercie
-      await fetch(N.actionFormulaire, { method: "POST", mode: "no-cors", body: new FormData(form) });
+      // isAjax=1 : même envoi que le formulaire intégré officiel de Brevo
+      await fetch(N.actionFormulaire + (N.actionFormulaire.includes("?") ? "&" : "?") + "isAjax=1", { method: "POST", mode: "no-cors", body: new FormData(form) });
       form.replaceWith(el("p", { class: "merci" }, "C'est noté ! Vérifie ta boîte mail pour confirmer ton inscription 💌"));
     } catch (_) {
       bouton.disabled = false;

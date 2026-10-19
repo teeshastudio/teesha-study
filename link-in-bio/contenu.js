@@ -89,7 +89,7 @@ window.TEESHA = {
     // Brevo : colle ici l'URL "action" de ton formulaire Brevo
     // (elle ressemble à https://xxxx.sibforms.com/serve/...).
     // Tant que c'est vide, le formulaire affiche un message de test.
-    actionFormulaire: "",
+    actionFormulaire: "https://ddfb38ec.sibforms.com/serve/MUIFANEa05RAQaho1ocKrUSdUaDVFeYA_bbfaRzLZb_HEG0bbE6_o7o0s6hQEU1RlmLpf1kxjQPPy4LnZALpcErIrDptg0aMy-4okd0zrQILi3TaI4qs15FthVVhmcEBrIjDJ_rEvPquVuIoyR5Qxvun6yCzoGJgP29dvLxBRAY7k-eX1yX8PIc4joOTmot2m6a6YOMOlz6iYXBHnA==",
     champNom: "PRENOM", // nom de l'attribut prénom dans Brevo (ou FIRSTNAME)
     champEmail: "EMAIL",
     mentionRgpd: "Pas de spam, désinscription en 1 clic.",
