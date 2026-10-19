@@ -95,7 +95,20 @@ window.TEESHA = {
     mentionRgpd: "Pas de spam, désinscription en 1 clic.",
   },
 
+  // Mets "mentions-legales.html" une fois la rubrique "legal" complétée :
+  // les liens apparaîtront en bas de page et sous le formulaire.
   pied: {
     mentionsLegales: "#",
+  },
+
+  // Infos affichées sur la page mentions-legales.html
+  legal: {
+    nom: "[Prénom Nom]",
+    statut: "entrepreneuse individuelle (micro-entreprise)",
+    adresse: "[Adresse]",
+    siret: "[SIRET]",
+    tva: "TVA non applicable, art. 293 B du CGI",
+    email: "teeshastudio@gmail.com",
+    date: "[date]",
   },
 };

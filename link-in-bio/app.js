@@ -90,6 +90,9 @@
     el("input", { type: "email", name: N.champEmail, placeholder: "Email", autocomplete: "email", required: "", "aria-label": "Email" }),
     el("button", { type: "submit" }, N.bouton),
     N.mentionRgpd ? el("small", {}, N.mentionRgpd) : null,
+    C.pied.mentionsLegales && C.pied.mentionsLegales !== "#"
+      ? el("small", {}, el("a", { href: C.pied.mentionsLegales + "#confidentialite" }, "Politique de confidentialité"))
+      : null,
   );
   // Champs techniques attendus par Brevo (anti-robot + langue)
   form.append(
@@ -122,6 +125,7 @@
   // Pied de page
   $("annee").textContent = new Date().getFullYear();
   if (C.pied.mentionsLegales && C.pied.mentionsLegales !== "#") $("mentions").href = C.pied.mentionsLegales;
+  // sinon on retire le lien tant que la page n'est pas prête
   else $("mentions").parentNode.innerHTML = "© " + new Date().getFullYear() + " Teesha Studio";
 
   // Les onglets n'ont d'intérêt que s'il y a au moins 2 sections
