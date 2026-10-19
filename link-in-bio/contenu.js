@@ -38,7 +38,7 @@ window.TEESHA = {
       description: "La checklist pour vérifier ton compte en 15 minutes.",
       bouton: "Je la télécharge",
       lien: "#",
-      visible: true,
+      visible: false, // exemple : passe à true une fois rempli
     },
     {
       emoji: "🗂️",
@@ -47,7 +47,7 @@ window.TEESHA = {
       description: "Planifie tes posts Insta & TikTok au même endroit.",
       bouton: "Je le récupère",
       lien: "#",
-      visible: true,
+      visible: false, // exemple : passe à true une fois rempli
     },
   ],
 
@@ -65,7 +65,7 @@ window.TEESHA = {
       badge: "Best-seller",
       bouton: "Je le veux",
       lien: "#",
-      visible: true,
+      visible: false, // exemple : passe à true une fois rempli
     },
     {
       emoji: "🎓",
@@ -77,7 +77,7 @@ window.TEESHA = {
       badge: "Nouveau",
       bouton: "Je découvre",
       lien: "#",
-      visible: true,
+      visible: false, // exemple : passe à true une fois rempli
     },
   ],
 
@@ -86,11 +86,12 @@ window.TEESHA = {
     titre: "Ta Safe Place Digitale",
     texte: "Je t'envoie mes conseils, ressources et outils pour éviter les erreurs classiques en communication quand on débute.",
     bouton: "Je m'inscris !",
-    // Colle ici l'URL "action" du formulaire de ton outil d'emailing.
+    // Brevo : colle ici l'URL "action" de ton formulaire Brevo
+    // (elle ressemble à https://xxxx.sibforms.com/serve/...).
     // Tant que c'est vide, le formulaire affiche un message de test.
     actionFormulaire: "",
-    champNom: "name", // nom du champ "prénom" attendu par ton outil
-    champEmail: "email", // nom du champ "email" attendu par ton outil
+    champNom: "PRENOM", // nom de l'attribut prénom dans Brevo (ou FIRSTNAME)
+    champEmail: "EMAIL",
     mentionRgpd: "Pas de spam, désinscription en 1 clic.",
   },
 

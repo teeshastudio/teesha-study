@@ -91,16 +91,39 @@
     el("button", { type: "submit" }, N.bouton),
     N.mentionRgpd ? el("small", {}, N.mentionRgpd) : null,
   );
-  form.addEventListener("submit", (e) => {
-    if (N.actionFormulaire) return; // envoi normal vers l'outil d'emailing
+  // Champs techniques attendus par Brevo (anti-robot + langue)
+  form.append(
+    el("input", { type: "text", name: "email_address_check", value: "", hidden: "", tabindex: "-1", autocomplete: "off" }),
+    el("input", { type: "hidden", name: "locale", value: "fr" }),
+  );
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    form.replaceWith(el("p", { class: "merci" }, "Merci ! (Formulaire de test : connecte ton outil d'emailing dans contenu.js)"));
+    if (!N.actionFormulaire) {
+      form.replaceWith(el("p", { class: "merci" }, "Merci ! (Formulaire de test : connecte Brevo dans contenu.js)"));
+      return;
+    }
+    const bouton = form.querySelector("button");
+    bouton.disabled = true;
+    bouton.textContent = "Envoi…";
+    try {
+      // Brevo ne renvoie pas de réponse lisible depuis une autre page : on envoie et on remercie
+      await fetch(N.actionFormulaire, { method: "POST", mode: "no-cors", body: new FormData(form) });
+      form.replaceWith(el("p", { class: "merci" }, "C'est noté ! Vérifie ta boîte mail pour confirmer ton inscription 💌"));
+    } catch (_) {
+      bouton.disabled = false;
+      bouton.textContent = N.bouton;
+      toast("Oups, l'envoi n'a pas marché. Vérifie ta connexion et réessaie.");
+    }
   });
   $("bloc-newsletter").append(el("h2", {}, N.titre), el("p", {}, N.texte), form);
 
   // Pied de page
   $("annee").textContent = new Date().getFullYear();
-  $("mentions").href = C.pied.mentionsLegales || "#";
+  if (C.pied.mentionsLegales && C.pied.mentionsLegales !== "#") $("mentions").href = C.pied.mentionsLegales;
+  else $("mentions").parentNode.innerHTML = "© " + new Date().getFullYear() + " Teesha Studio";
+
+  // Les onglets n'ont d'intérêt que s'il y a au moins 2 sections
+  if (document.querySelectorAll("#onglets a:not([hidden])").length < 2) $("onglets").hidden = true;
 
   // Partage
   function toast(msg) {
