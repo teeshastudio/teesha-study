@@ -1,6 +1,6 @@
 -- ============================================================
 -- TEESHA STUDIO — base de données du formulaire + CRM
--- À coller UNE FOIS dans Supabase → SQL Editor → New query → Run
+-- À coller dans Supabase → SQL Editor → New query → Run (peut être relancé sans risque)
 -- ============================================================
 
 -- 1. Qui a accès au CRM (toi seule, ajoutée à l'étape 2 du guide)
@@ -19,6 +19,7 @@ as $$
   select exists (select 1 from public.admins where user_id = auth.uid());
 $$;
 
+drop policy if exists "admin lit la liste des admins" on public.admins;
 create policy "admin lit la liste des admins" on public.admins
   for select to authenticated using (user_id = auth.uid());
 
@@ -85,6 +86,7 @@ grant insert (nom, email, instagram, activite, anciennete, besoin, projet, objec
               blocages, budget, deadline, fichiers, contact_pref, source, source_autre)
   on public.contacts to anon;
 
+drop policy if exists "le formulaire ajoute une demande" on public.contacts;
 create policy "le formulaire ajoute une demande" on public.contacts
   for insert to anon
   with check (etape = 'Nouvelle demande' and origine = 'Formulaire'
@@ -96,8 +98,10 @@ create policy "le formulaire ajoute une demande" on public.contacts
 grant select, insert, update, delete on public.contacts to authenticated;
 grant select, insert, update, delete on public.projets to authenticated;
 
+drop policy if exists "admin gère les contacts" on public.contacts;
 create policy "admin gère les contacts" on public.contacts
   for all to authenticated using (public.is_admin()) with check (public.is_admin());
+drop policy if exists "admin gère les projets" on public.projets;
 create policy "admin gère les projets" on public.projets
   for all to authenticated using (public.is_admin()) with check (public.is_admin());
 
@@ -106,15 +110,26 @@ insert into storage.buckets (id, name, public, file_size_limit)
 values ('fichiers', 'fichiers', false, 10485760)
 on conflict (id) do nothing;
 
+drop policy if exists "le formulaire dépose des fichiers" on storage.objects;
 create policy "le formulaire dépose des fichiers" on storage.objects
   for insert to anon
   with check (bucket_id = 'fichiers' and (storage.foldername(name))[1] = 'demandes');
 
+drop policy if exists "admin lit les fichiers" on storage.objects;
 create policy "admin lit les fichiers" on storage.objects
   for select to authenticated using (bucket_id = 'fichiers' and public.is_admin());
 
+drop policy if exists "admin supprime les fichiers" on storage.objects;
 create policy "admin supprime les fichiers" on storage.objects
   for delete to authenticated using (bucket_id = 'fichiers' and public.is_admin());
 
 -- 6. Mise à jour en direct du CRM quand une demande arrive
-alter publication supabase_realtime add table public.contacts, public.projets;
+do $$
+begin
+  if not exists (select 1 from pg_publication_tables where pubname = 'supabase_realtime' and tablename = 'contacts') then
+    alter publication supabase_realtime add table public.contacts;
+  end if;
+  if not exists (select 1 from pg_publication_tables where pubname = 'supabase_realtime' and tablename = 'projets') then
+    alter publication supabase_realtime add table public.projets;
+  end if;
+end $$;
