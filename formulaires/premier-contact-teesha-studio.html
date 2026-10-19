@@ -1,33 +1,38 @@
 <title>Premier contact Teesha Studio</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@700&family=Inter:wght@400;500;600&display=swap">
 <style>
-/* Layout: one centred column, one question group per step, progress rail on top */
+/* Charte Teesha Studio — 60 % blanc cassé · 30 % noir · 10 % vert acide (surligneur). Jamais de texte vert sur blanc cassé.
+   Polices de la charte : Loubag (titres), Kollektif Bold (accroches), Neue Montreal (texte).
+   Équivalents Google Fonts en attendant : Anton, Poppins Bold (secours officiel), Inter. */
 :root {
-  --bg: #fbf7f9;
+  --bg: #fafaf7;
   --surface: #ffffff;
-  --ink: #2a1e2c;
-  --muted: #76657a;
-  --line: #e6d8e0;
-  --accent: #8e3b6b;
-  --accent-ink: #ffffff;
-  --accent-soft: #f4e4ec;
+  --ink: #0d0d0d;
+  --muted: #5c5c57;
+  --line: #e4e4de;
+  --accent: #0d0d0d;       /* boutons et sélection : noir sur blanc cassé */
+  --accent-ink: #fafaf7;
+  --accent-soft: #f1f1ec;
+  --hl: #a3e635;           /* surligneur vert acide, toujours avec texte noir */
+  --hl-ink: #0d0d0d;
   --danger: #b3261e;
-  --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
-  --body: "Figtree", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --display: "Loubag", "Anton", "Impact", "Arial Narrow", sans-serif;
+  --hook: "Kollektif", "Poppins", "Avenir Next", system-ui, sans-serif;
+  --body: "Neue Montreal", "Inter", "Helvetica Neue", system-ui, -apple-system, sans-serif;
   --radius: 14px;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #1b1420; --surface: #251c2b; --ink: #f3e9ef; --muted: #b6a3b9;
-    --line: #3b2e42; --accent: #e08bb8; --accent-ink: #2a1020; --accent-soft: #3a2433;
+    --bg: #0d0d0d; --surface: #161615; --ink: #fafaf7; --muted: #b9b9b2;
+    --line: #2e2e2b; --accent: #a3e635; --accent-ink: #0d0d0d; --accent-soft: #1d2412;
     --danger: #ff8a80; color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #1b1420; --surface: #251c2b; --ink: #f3e9ef; --muted: #b6a3b9;
-  --line: #3b2e42; --accent: #e08bb8; --accent-ink: #2a1020; --accent-soft: #3a2433;
+  --bg: #0d0d0d; --surface: #161615; --ink: #fafaf7; --muted: #b9b9b2;
+  --line: #2e2e2b; --accent: #a3e635; --accent-ink: #0d0d0d; --accent-soft: #1d2412;
   --danger: #ff8a80; color-scheme: dark;
 }
 * { box-sizing: border-box; }
@@ -39,22 +44,24 @@ body {
 }
 .wrap { max-width: 620px; margin: 0 auto; }
 .top { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-block: 20px 12px; }
-.brand { font-family: var(--display); font-weight: 700; font-size: 15px; letter-spacing: .14em; text-transform: uppercase; }
-.brand span { color: var(--accent); }
+.brand { font-family: var(--display); font-weight: 400; font-size: 20px; letter-spacing: .04em; text-transform: uppercase; }
+.brand span { background: var(--hl); color: var(--hl-ink); padding: 0 6px; }
+mark { background: var(--hl); color: var(--hl-ink); padding: 0 .12em; }
 .count { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
 .rail { height: 4px; background: var(--line); border-radius: 4px; overflow: hidden; }
-.rail i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .35s ease; }
+.rail i { display: block; height: 100%; width: 0; background: var(--hl); transition: width .35s ease; }
 .step { display: grid; gap: 28px; padding-block: 36px 0; }
-h1, h2 { font-family: var(--display); font-weight: 700; line-height: 1.12; margin: 0; text-wrap: balance; }
-h1 { font-size: clamp(30px, 7vw, 44px); }
-h2 { font-size: clamp(22px, 5vw, 28px); }
+h1, h2 { font-family: var(--display); font-weight: 400; line-height: 1.02; margin: 0; text-wrap: balance; text-transform: uppercase; letter-spacing: .01em; }
+h1 { font-size: clamp(40px, 10vw, 64px); }
+h2 { font-size: clamp(28px, 6.5vw, 38px); }
+.label { font-family: var(--hook); }
 .lead { margin: 0; font-size: 18px; color: var(--muted); max-width: 52ch; }
 .facts { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
 .facts li { display: flex; gap: 12px; align-items: baseline; }
-.facts b { font-weight: 600; min-width: 9ch; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); }
+.facts b { font-family: var(--hook); font-weight: 700; min-width: 10ch; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink); }
 .field { display: grid; gap: 8px; }
 .label { font-weight: 600; font-size: 17px; }
-.req { color: var(--accent); margin-left: 2px; }
+.req { color: var(--muted); margin-left: 2px; }
 .hint { font-size: 14px; color: var(--muted); margin-top: -4px; }
 input[type="text"], input[type="email"], input[type="date"], textarea {
   width: 100%; font: inherit; color: var(--ink); background: var(--surface);
@@ -72,7 +79,7 @@ input:focus-visible, textarea:focus-visible, .opt:focus-within, button:focus-vis
 .key { flex: none; width: 26px; height: 26px; display: grid; place-items: center; border: 1.5px solid var(--line);
   border-radius: 6px; font-size: 12px; font-weight: 600; color: var(--muted); }
 .opt.on { border-color: var(--accent); background: var(--accent-soft); }
-.opt.on .key { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.opt.on .key { background: var(--hl); border-color: var(--hl); color: var(--hl-ink); }
 .other { display: none; margin-top: 4px; }
 .other.show { display: block; }
 .drop { display: grid; place-items: center; gap: 4px; text-align: center; padding: 22px 16px; border: 1.5px dashed var(--line);
@@ -83,13 +90,13 @@ input:focus-visible, textarea:focus-visible, .opt:focus-within, button:focus-vis
 .field.bad .err { display: block; }
 .field.bad input, .field.bad textarea { border-color: var(--danger); }
 .nav { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
-button { font: inherit; font-weight: 600; border-radius: 999px; padding: 13px 26px; cursor: pointer; border: 1.5px solid transparent; }
-.primary { background: var(--accent); color: var(--accent-ink); }
+button { font: inherit; font-family: var(--hook); font-weight: 700; border-radius: 10px; padding: 13px 26px; cursor: pointer; border: 1.5px solid transparent; }
+.primary { background: var(--hl); color: var(--hl-ink); border-color: var(--ink); }
 .ghost { background: transparent; color: var(--muted); border-color: var(--line); }
 .tip { font-size: 13px; color: var(--muted); }
 .done { text-align: left; }
-.ig { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; background: var(--accent); color: var(--accent-ink);
-  font-weight: 600; padding: 13px 26px; border-radius: 999px; width: fit-content; }
+.ig { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; background: var(--hl); color: var(--hl-ink);
+  font-family: var(--hook); font-weight: 700; padding: 13px 26px; border-radius: 10px; border: 1.5px solid var(--ink); width: fit-content; }
 .handle { font-size: 14px; color: var(--muted); }
 .recap { border-top: 1px solid var(--line); padding-top: 18px; font-size: 14px; color: var(--muted); }
 .recap dl { display: grid; grid-template-columns: minmax(0, 12ch) minmax(0, 1fr); gap: 6px 14px; margin: 10px 0 0; }
@@ -108,7 +115,7 @@ button { font: inherit; font-weight: 600; border-radius: 999px; padding: 13px 26
   <form id="form" novalidate>
     <!-- 1 · Accueil -->
     <section class="step" data-step="0">
-      <h1>Premier contact</h1>
+      <h1>Premier <mark>contact</mark></h1>
       <p class="lead">Merci de ton intérêt ! Ce formulaire me permet de comprendre ton projet, ton besoin et tes attentes pour te proposer une solution adaptée.</p>
       <ul class="facts">
         <li><b>Durée</b> 2 à 3 minutes</li>
@@ -229,7 +236,7 @@ button { font: inherit; font-weight: 600; border-radius: 999px; padding: 13px 26
 
     <!-- 8 · Merci -->
     <section class="step done" data-step="7" hidden>
-      <h1>Merci ! Ta demande a bien été envoyée.</h1>
+      <h1><mark>Merci !</mark> Ta demande a bien été envoyée.</h1>
       <p class="lead">Je reviens vers toi sous 24 à 48 h avec une réponse personnalisée. En attendant, tu peux continuer à explorer mes contenus sur Instagram.</p>
       <a class="ig" href="https://www.instagram.com/teesha_studio/" target="_blank" rel="noopener">Accéder à mon Instagram</a>
       <span class="handle">@teesha_studio</span>

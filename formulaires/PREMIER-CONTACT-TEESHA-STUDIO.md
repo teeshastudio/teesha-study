@@ -95,3 +95,37 @@ Avec l'intégration Tally → Notion, chaque réponse crée une fiche dans la ba
 | *(automatique)* | Statut = `Lead` |
 | *(date d'envoi)* | Date premier contact |
 | Toutes les autres réponses | Notes (ou propriétés dédiées : Besoin, Budget, Objectif…) |
+
+---
+
+## Mise en ligne (marche à suivre)
+
+### 1. Appliquer la charte dans Tally (*Customize*)
+
+| Réglage Tally | Valeur |
+|---------------|--------|
+| Fond | `#FAFAF7` (blanc cassé) |
+| Texte | `#0D0D0D` (noir) |
+| Boutons | `#A3E635` (vert acide), texte noir |
+| Accent / bordures | `#E4E4DE` |
+| Police | Inter (proche de Neue Montreal) — Loubag / Kollektif ne sont pas proposées |
+| Couverture | Visuel noir de la charte (palmier) exporté depuis Canva |
+| Logo | Monogramme **TS** |
+
+⚠️ Jamais de texte vert sur fond blanc cassé (règle de la charte).
+
+### 2. Regrouper les réponses dans Notion
+
+1. Tally → onglet **Integrations** → **Notion** → *Connect*.
+2. Choisir la base **CRM Clients**.
+3. Associer les champs (tableau « Lien avec le CRM Clients » ci-dessus).
+4. Ajouter dans Notion les propriétés manquantes : `Besoin` (multi-sélect), `Budget` (sélect), `Objectif` (sélect), `Contact préféré` (sélect), `Instagram` (URL).
+5. Créer une vue **Nouvelles demandes** : filtre `Statut = Lead`, tri par date décroissante.
+6. Tally → **Settings** → *Self email notifications* activé, pour être prévenue à chaque envoi.
+
+### 3. Publier
+
+- Tally → **Publish** → copier le lien (`tally.so/r/…`).
+- Instagram : lien en bio + sticker « Lien » en story + réponse rapide en DM (« Remplis ce formulaire, je te réponds sous 48 h »).
+- Story à la une **« Travailler ensemble »** avec le lien.
+- Faire un test complet avant d'annoncer le lien.
