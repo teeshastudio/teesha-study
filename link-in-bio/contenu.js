@@ -24,7 +24,7 @@ window.TEESHA = {
 
   // Gros boutons verts en haut de page
   liensPrincipaux: [
-    { titre: "Premier contact — Teesha Studio", sousTitre: "Parlons de ton projet", lien: "#" },
+    { titre: "Premier contact — Teesha Studio", sousTitre: "Parlons de ton projet", lien: "https://formulairets.netlify.app/" },
   ],
 
   // RESSOURCES GRATUITES (lead magnets)
