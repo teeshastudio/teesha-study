@@ -1,0 +1,354 @@
+<title>Premier contact Teesha Studio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600&display=swap">
+<style>
+/* Layout: one centred column, one question group per step, progress rail on top */
+:root {
+  --bg: #fbf7f9;
+  --surface: #ffffff;
+  --ink: #2a1e2c;
+  --muted: #76657a;
+  --line: #e6d8e0;
+  --accent: #8e3b6b;
+  --accent-ink: #ffffff;
+  --accent-soft: #f4e4ec;
+  --danger: #b3261e;
+  --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body: "Figtree", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --radius: 14px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1b1420; --surface: #251c2b; --ink: #f3e9ef; --muted: #b6a3b9;
+    --line: #3b2e42; --accent: #e08bb8; --accent-ink: #2a1020; --accent-soft: #3a2433;
+    --danger: #ff8a80; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1b1420; --surface: #251c2b; --ink: #f3e9ef; --muted: #b6a3b9;
+  --line: #3b2e42; --accent: #e08bb8; --accent-ink: #2a1020; --accent-soft: #3a2433;
+  --danger: #ff8a80; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 48px;
+}
+.wrap { max-width: 620px; margin: 0 auto; }
+.top { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-block: 20px 12px; }
+.brand { font-family: var(--display); font-weight: 700; font-size: 15px; letter-spacing: .14em; text-transform: uppercase; }
+.brand span { color: var(--accent); }
+.count { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.rail { height: 4px; background: var(--line); border-radius: 4px; overflow: hidden; }
+.rail i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .35s ease; }
+.step { display: grid; gap: 28px; padding-block: 36px 0; }
+h1, h2 { font-family: var(--display); font-weight: 700; line-height: 1.12; margin: 0; text-wrap: balance; }
+h1 { font-size: clamp(30px, 7vw, 44px); }
+h2 { font-size: clamp(22px, 5vw, 28px); }
+.lead { margin: 0; font-size: 18px; color: var(--muted); max-width: 52ch; }
+.facts { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.facts li { display: flex; gap: 12px; align-items: baseline; }
+.facts b { font-weight: 600; min-width: 9ch; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); }
+.field { display: grid; gap: 8px; }
+.label { font-weight: 600; font-size: 17px; }
+.req { color: var(--accent); margin-left: 2px; }
+.hint { font-size: 14px; color: var(--muted); margin-top: -4px; }
+input[type="text"], input[type="email"], input[type="date"], textarea {
+  width: 100%; font: inherit; color: var(--ink); background: var(--surface);
+  border: 1.5px solid var(--line); border-radius: 10px; padding: 12px 14px;
+}
+textarea { min-height: 120px; resize: vertical; }
+input:focus-visible, textarea:focus-visible, .opt:focus-within, button:focus-visible {
+  outline: 2px solid var(--accent); outline-offset: 2px;
+}
+.opts { display: grid; gap: 8px; }
+.opt { display: flex; align-items: center; gap: 12px; padding: 11px 14px; background: var(--surface);
+  border: 1.5px solid var(--line); border-radius: 10px; cursor: pointer; transition: border-color .15s, background .15s; }
+.opt:hover { border-color: var(--accent); }
+.opt input { position: absolute; opacity: 0; pointer-events: none; }
+.key { flex: none; width: 26px; height: 26px; display: grid; place-items: center; border: 1.5px solid var(--line);
+  border-radius: 6px; font-size: 12px; font-weight: 600; color: var(--muted); }
+.opt.on { border-color: var(--accent); background: var(--accent-soft); }
+.opt.on .key { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.other { display: none; margin-top: 4px; }
+.other.show { display: block; }
+.drop { display: grid; place-items: center; gap: 4px; text-align: center; padding: 22px 16px; border: 1.5px dashed var(--line);
+  border-radius: 10px; background: var(--surface); color: var(--muted); font-size: 14px; cursor: pointer; }
+.drop strong { color: var(--ink); font-weight: 600; }
+.drop input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.err { color: var(--danger); font-size: 14px; display: none; }
+.field.bad .err { display: block; }
+.field.bad input, .field.bad textarea { border-color: var(--danger); }
+.nav { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+button { font: inherit; font-weight: 600; border-radius: 999px; padding: 13px 26px; cursor: pointer; border: 1.5px solid transparent; }
+.primary { background: var(--accent); color: var(--accent-ink); }
+.ghost { background: transparent; color: var(--muted); border-color: var(--line); }
+.tip { font-size: 13px; color: var(--muted); }
+.done { text-align: left; }
+.ig { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; background: var(--accent); color: var(--accent-ink);
+  font-weight: 600; padding: 13px 26px; border-radius: 999px; width: fit-content; }
+.handle { font-size: 14px; color: var(--muted); }
+.recap { border-top: 1px solid var(--line); padding-top: 18px; font-size: 14px; color: var(--muted); }
+.recap dl { display: grid; grid-template-columns: minmax(0, 12ch) minmax(0, 1fr); gap: 6px 14px; margin: 10px 0 0; }
+.recap dt { font-weight: 600; color: var(--ink); }
+.recap dd { margin: 0; overflow-wrap: anywhere; }
+@media (prefers-reduced-motion: reduce) { .rail i, .opt { transition: none; } }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand">Teesha <span>Studio</span></div>
+    <div class="count" id="count">Bienvenue</div>
+  </header>
+  <div class="rail" aria-hidden="true"><i id="bar"></i></div>
+
+  <form id="form" novalidate>
+    <!-- 1 · Accueil -->
+    <section class="step" data-step="0">
+      <h1>Premier contact</h1>
+      <p class="lead">Merci de ton intérêt ! Ce formulaire me permet de comprendre ton projet, ton besoin et tes attentes pour te proposer une solution adaptée.</p>
+      <ul class="facts">
+        <li><b>Durée</b> 2 à 3 minutes</li>
+        <li><b>Engagement</b> Aucun</li>
+        <li><b>Réponse</b> Sous 24 à 48 h</li>
+      </ul>
+      <div class="nav"><button type="button" class="primary" data-next>Commencer</button></div>
+    </section>
+
+    <!-- 2 · Toi -->
+    <section class="step" data-step="1" hidden>
+      <h2>Faisons connaissance</h2>
+      <div class="field" data-req>
+        <label class="label" for="nom">Nom et prénom<span class="req">*</span></label>
+        <input type="text" id="nom" name="nom" autocomplete="name">
+        <span class="err">Indique ton nom et ton prénom.</span>
+      </div>
+      <div class="field" data-req data-email>
+        <label class="label" for="email">Adresse e-mail<span class="req">*</span></label>
+        <input type="email" id="email" name="email" autocomplete="email" inputmode="email">
+        <span class="err">Indique une adresse e-mail valide, par exemple prenom@mail.com.</span>
+      </div>
+      <div class="field">
+        <label class="label" for="instagram">Ton Instagram</label>
+        <span class="hint">Pour que je puisse te retrouver plus facilement !</span>
+        <input type="text" id="instagram" name="instagram" placeholder="@toncompte">
+      </div>
+      <div class="field" data-req>
+        <label class="label" for="activite">Quelle est ton activité / ta niche ?<span class="req">*</span></label>
+        <input type="text" id="activite" name="activite">
+        <span class="err">Dis-moi en quelques mots ce que tu fais.</span>
+      </div>
+      <div class="field" data-req data-choice="anciennete">
+        <span class="label">Depuis combien de temps es-tu lancée ?<span class="req">*</span></span>
+        <div class="opts" data-opts="anciennete" data-list="Je commence|Moins de 6 mois|6 mois à 1 an|1 à 2 ans|Plus de 2 ans"></div>
+        <span class="err">Choisis une réponse.</span>
+      </div>
+      <div class="nav"><button type="button" class="primary" data-next>Suivant</button><button type="button" class="ghost" data-prev>Retour</button></div>
+    </section>
+
+    <!-- 3 · Besoin -->
+    <section class="step" data-step="2" hidden>
+      <div class="field" data-req data-choice="besoin">
+        <h2>Quel est ton besoin aujourd’hui ?<span class="req">*</span></h2>
+        <span class="hint">Plusieurs choix possibles.</span>
+        <div class="opts" data-opts="besoin" data-multi data-list="Branding / identité visuelle|Création de contenu Instagram|Community management|Templates personnalisés|Coaching 1:1|Session unique|Accompagnement complet|Je ne sais pas encore (je veux être guidée)"></div>
+        <span class="err">Choisis au moins une réponse.</span>
+      </div>
+      <div class="nav"><button type="button" class="primary" data-next>Suivant</button><button type="button" class="ghost" data-prev>Retour</button></div>
+    </section>
+
+    <!-- 4 · Projet -->
+    <section class="step" data-step="3" hidden>
+      <h2>Ton projet</h2>
+      <div class="field" data-req>
+        <label class="label" for="projet">Explique-moi ton projet ou ton besoin en quelques mots<span class="req">*</span></label>
+        <textarea id="projet" name="projet"></textarea>
+        <span class="err">Écris quelques mots sur ton projet.</span>
+      </div>
+      <div class="field" data-req data-choice="objectif">
+        <span class="label">Quel est TON objectif principal ?<span class="req">*</span></span>
+        <div class="opts" data-opts="objectif" data-other data-list="Clarifier mon image|Améliorer mon Instagram|Avoir un branding pro|Gagner du temps sur le contenu|Déléguer complètement|Lancer mon business correctement|Booster ma motivation / mon mindset|Augmenter ma visibilité|Structurer mon projet"></div>
+        <input type="text" class="other" id="objectif-autre" name="objectif-autre" placeholder="Ton objectif">
+        <span class="err">Choisis ton objectif principal.</span>
+      </div>
+      <div class="nav"><button type="button" class="primary" data-next>Suivant</button><button type="button" class="ghost" data-prev>Retour</button></div>
+    </section>
+
+    <!-- 5 · Blocages -->
+    <section class="step" data-step="4" hidden>
+      <div class="field" data-req>
+        <h2><label for="blocages">Quels sont tes plus gros blocages actuellement ?<span class="req">*</span></label></h2>
+        <span class="hint">Manque de temps, d’idées, de régularité, de confiance… Dis-moi tout.</span>
+        <textarea id="blocages" name="blocages"></textarea>
+        <span class="err">Décris au moins un blocage.</span>
+      </div>
+      <div class="nav"><button type="button" class="primary" data-next>Suivant</button><button type="button" class="ghost" data-prev>Retour</button></div>
+    </section>
+
+    <!-- 6 · Budget -->
+    <section class="step" data-step="5" hidden>
+      <h2>Budget et délais</h2>
+      <div class="field" data-req data-choice="budget">
+        <span class="label">Quel est ton budget pour ce projet ?<span class="req">*</span></span>
+        <div class="opts" data-opts="budget" data-list="Moins de 50 € (petits produits digitaux)|50 à 150 €|150 à 300 €|300 à 600 €|600 € et plus (prestations premium / coaching)"></div>
+        <span class="err">Choisis une fourchette de budget.</span>
+      </div>
+      <div class="field">
+        <label class="label" for="deadline">As-tu une deadline ?</label>
+        <input type="text" id="deadline" name="deadline" placeholder="Ex. lancement prévu le 15 janvier">
+      </div>
+      <div class="field">
+        <span class="label">As-tu déjà des fichiers (branding, logo, idées…) ?</span>
+        <label class="drop" for="fichiers">
+          <strong>Clique pour choisir des fichiers</strong>
+          <span id="fichiers-nom">ou glisse-les ici · 10 Mo maximum</span>
+          <input type="file" id="fichiers" name="fichiers" multiple>
+        </label>
+      </div>
+      <div class="nav"><button type="button" class="primary" data-next>Suivant</button><button type="button" class="ghost" data-prev>Retour</button></div>
+    </section>
+
+    <!-- 7 · Contact -->
+    <section class="step" data-step="6" hidden>
+      <h2>Pour te répondre</h2>
+      <div class="field" data-req data-choice="contact">
+        <span class="label">Comment préfères-tu que je te contacte ?<span class="req">*</span></span>
+        <div class="opts" data-opts="contact" data-list="Instagram|E-mail|WhatsApp|Peu importe"></div>
+        <span class="err">Choisis un moyen de contact.</span>
+      </div>
+      <div class="field">
+        <span class="label">Où m’as-tu découverte ?</span>
+        <div class="opts" data-opts="source" data-other data-list="Instagram|Recommandation|TikTok|Recherche Google"></div>
+        <input type="text" class="other" id="source-autre" name="source-autre" placeholder="Où exactement ?">
+      </div>
+      <div class="nav"><button type="submit" class="primary">Envoyer</button><button type="button" class="ghost" data-prev>Retour</button></div>
+    </section>
+
+    <!-- 8 · Merci -->
+    <section class="step done" data-step="7" hidden>
+      <h1>Merci ! Ta demande a bien été envoyée.</h1>
+      <p class="lead">Je reviens vers toi sous 24 à 48 h avec une réponse personnalisée. En attendant, tu peux continuer à explorer mes contenus sur Instagram.</p>
+      <a class="ig" href="https://www.instagram.com/teesha_studio/" target="_blank" rel="noopener">Accéder à mon Instagram</a>
+      <span class="handle">@teesha_studio</span>
+      <div class="recap"><strong>Aperçu :</strong> voici les réponses que tu recevrais.<dl id="recap"></dl></div>
+    </section>
+  </form>
+  <p class="tip" id="tip">Astuce : tape la lettre d’une réponse pour la sélectionner, Entrée pour continuer.</p>
+</div>
+
+<script>
+(function () {
+  const form = document.getElementById("form");
+  const steps = [...form.querySelectorAll(".step")];
+  const LAST_Q = steps.length - 2;
+  let cur = 0;
+
+  // Build the lettered choice lists
+  form.querySelectorAll("[data-opts]").forEach(box => {
+    const name = box.dataset.opts, multi = box.hasAttribute("data-multi");
+    const items = box.dataset.list.split("|");
+    if (box.hasAttribute("data-other")) items.push("Autre");
+    items.forEach((txt, i) => {
+      const id = name + "-" + i;
+      const lab = document.createElement("label");
+      lab.className = "opt"; lab.htmlFor = id;
+      lab.innerHTML = '<input type="' + (multi ? "checkbox" : "radio") + '" name="' + name + '" id="' + id + '"><span class="key"></span><span></span>';
+      lab.querySelector("input").value = txt;
+      lab.querySelector(".key").textContent = String.fromCharCode(65 + i);
+      lab.lastChild.textContent = txt;
+      box.appendChild(lab);
+    });
+    box.addEventListener("change", () => {
+      box.querySelectorAll(".opt").forEach(o => o.classList.toggle("on", o.querySelector("input").checked));
+      const other = box.parentElement.querySelector(".other");
+      if (other) {
+        const show = !!box.querySelector('input[value="Autre"]:checked');
+        other.classList.toggle("show", show);
+        if (show) other.focus();
+      }
+      box.closest(".field").classList.remove("bad");
+    });
+  });
+
+  form.addEventListener("input", e => e.target.closest(".field")?.classList.remove("bad"));
+
+  const files = document.getElementById("fichiers");
+  files.addEventListener("change", () => {
+    const n = [...files.files].map(f => f.name);
+    document.getElementById("fichiers-nom").textContent = n.length ? n.join(", ") : "ou glisse-les ici · 10 Mo maximum";
+  });
+
+  function valid(step) {
+    let ok = true, first = null;
+    step.querySelectorAll(".field[data-req]").forEach(f => {
+      let good;
+      if (f.dataset.choice) good = !!f.querySelector("input:checked");
+      else {
+        const el = f.querySelector("input, textarea"), v = el.value.trim();
+        good = v.length > 0 && (!f.hasAttribute("data-email") || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v));
+      }
+      f.classList.toggle("bad", !good);
+      if (!good) { ok = false; first = first || f; }
+    });
+    if (first) (first.querySelector("input:not([type=radio]):not([type=checkbox]), textarea") || first.querySelector("input")).focus();
+    return ok;
+  }
+
+  function show(i) {
+    steps[cur].hidden = true; cur = i; steps[cur].hidden = false;
+    document.getElementById("bar").style.width = Math.min(100, (cur / (steps.length - 1)) * 100) + "%";
+    document.getElementById("count").textContent =
+      cur === 0 ? "Bienvenue" : cur > LAST_Q ? "Envoyé" : "Étape " + cur + " sur " + LAST_Q;
+    document.getElementById("tip").hidden = cur > LAST_Q;
+    const f = steps[cur].querySelector("input[type=text], input[type=email], textarea");
+    if (f && cur > 0) f.focus({ preventScroll: true });
+    window.scrollTo({ top: 0 });
+  }
+
+  form.addEventListener("click", e => {
+    if (e.target.matches("[data-next]") && valid(steps[cur])) show(cur + 1);
+    if (e.target.matches("[data-prev]")) show(cur - 1);
+  });
+
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    if (!valid(steps[cur])) return;
+    const data = new FormData(form), recap = document.getElementById("recap");
+    const labels = { nom: "Nom", email: "E-mail", instagram: "Instagram", activite: "Activité", anciennete: "Lancée depuis",
+      besoin: "Besoin", projet: "Projet", objectif: "Objectif", blocages: "Blocages", budget: "Budget",
+      deadline: "Deadline", contact: "Contact via", source: "Découverte via" };
+    recap.textContent = "";
+    Object.keys(labels).forEach(k => {
+      let v = data.getAll(k).filter(x => typeof x === "string" && x.trim());
+      const other = data.get(k + "-autre");
+      v = v.map(x => x === "Autre" && other ? "Autre : " + other : x);
+      if (!v.length) return;
+      const dt = document.createElement("dt"), dd = document.createElement("dd");
+      dt.textContent = labels[k]; dd.textContent = v.join(", ");
+      recap.append(dt, dd);
+    });
+    show(cur + 1);
+  });
+
+  // Letter shortcuts and Enter to continue
+  document.addEventListener("keydown", e => {
+    const t = e.target, typing = t.matches("input[type=text], input[type=email], textarea");
+    if (e.key === "Enter" && !typing && cur === 0) { e.preventDefault(); show(1); return; }
+    if (e.key === "Enter" && t.matches("input[type=text], input[type=email]")) {
+      e.preventDefault();
+      const btn = steps[cur].querySelector("[data-next], [type=submit]");
+      btn && btn.click();
+      return;
+    }
+    if (typing || e.metaKey || e.ctrlKey || e.altKey || !/^[a-z]$/i.test(e.key)) return;
+    const boxes = [...steps[cur].querySelectorAll("[data-opts]")];
+    const box = boxes.find(b => b.contains(document.activeElement)) || boxes[0];
+    if (!box) return;
+    const opt = box.querySelectorAll(".opt input")[e.key.toUpperCase().charCodeAt(0) - 65];
+    if (opt) { opt.click(); opt.focus(); }
+  });
+})();
+</script>
