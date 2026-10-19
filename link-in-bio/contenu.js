@@ -98,17 +98,17 @@ window.TEESHA = {
   // Mets "mentions-legales.html" une fois la rubrique "legal" complétée :
   // les liens apparaîtront en bas de page et sous le formulaire.
   pied: {
-    mentionsLegales: "#",
+    mentionsLegales: "mentions-legales.html",
   },
 
   // Infos affichées sur la page mentions-legales.html
   legal: {
-    nom: "[Prénom Nom]",
+    nom: "Liyah Daubin",
     statut: "entrepreneuse individuelle (micro-entreprise)",
-    adresse: "[Adresse]",
-    siret: "[SIRET]",
+    adresse: "Les Abymes, 97139 Guadeloupe",
+    siret: "immatriculation en cours",
     tva: "TVA non applicable, art. 293 B du CGI",
     email: "teeshastudio@gmail.com",
-    date: "[date]",
+    date: "19 octobre 2026",
   },
 };
