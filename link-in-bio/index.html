@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Teesha Studio</title>
+  <meta name="description" content="Teesha Studio — Notion, marketing et communication. Ressources gratuites, templates et formations.">
+  <meta property="og:title" content="Teesha Studio">
+  <meta property="og:description" content="Ta safe place digitale : ressources gratuites, templates Notion et formations.">
+  <meta name="theme-color" content="#1b1b1b">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --fond: #1b1b1b;
+      --carte: #252525;
+      --carte-bord: #333;
+      --texte: #f5f5f0;
+      --texte-doux: #b9b9b0;
+      --citron: #c5e478;
+      --citron-fonce: #a9cc55;
+      --violet: #512d9c;
+      --violet-clair: #ece8f7;
+      --noir: #111;
+      --rayon: 16px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--fond);
+      color: var(--texte);
+      font-family: "Poppins", system-ui, sans-serif;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    .page { max-width: 600px; margin: 0 auto; padding: 20px 16px 40px; }
+
+    /* Barre du haut */
+    .barre { display: flex; justify-content: space-between; align-items: center; }
+    .btn-gris {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #e8e8e8; color: #444; border: 0; border-radius: 10px;
+      padding: 9px 16px; font: 600 14px/1 "Poppins", sans-serif; letter-spacing: .02em;
+      cursor: pointer; text-transform: uppercase;
+    }
+    .btn-icone { background: none; border: 0; color: var(--texte-doux); cursor: pointer; padding: 6px; border-radius: 8px; }
+    .btn-icone:hover { color: var(--texte); }
+    .toast {
+      position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 20px);
+      background: var(--citron); color: var(--noir); font-weight: 600; font-size: 14px;
+      padding: 10px 18px; border-radius: 999px; opacity: 0; pointer-events: none;
+      transition: .25s ease; z-index: 10;
+    }
+    .toast.visible { opacity: 1; transform: translate(-50%, 0); }
+
+    /* Profil */
+    .profil { display: flex; align-items: center; gap: 20px; margin: 28px 0 8px; }
+    .logo {
+      flex: none; width: 104px; height: 104px; border-radius: 50%;
+      background: #fafaf5; border: 3px solid var(--citron);
+      display: grid; place-items: center; overflow: hidden;
+    }
+    .logo img { width: 100%; height: 100%; object-fit: cover; }
+    .logo-texte { position: relative; text-align: left; }
+    .logo-texte b {
+      position: relative; z-index: 1; display: block;
+      font: 400 27px/1 "Anton", sans-serif; color: var(--noir); letter-spacing: .01em;
+    }
+    .logo-texte::before {
+      content: ""; position: absolute; left: -2px; right: 30%; top: 11px; height: 11px;
+      background: var(--citron-fonce);
+    }
+    .logo-texte small { display: block; font: 600 6px/1 "Poppins", sans-serif; letter-spacing: .3em; color: var(--noir); margin-top: 3px; }
+    .nom { font: 700 26px/1.15 "Space Grotesk", sans-serif; letter-spacing: -.01em; }
+    .reseaux { display: flex; gap: 14px; margin-top: 10px; }
+    .reseaux a { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; transition: background .2s; }
+    .reseaux a:hover { background: #2c2c2c; }
+    .reseaux svg { width: 26px; height: 26px; }
+    .bio { color: var(--texte-doux); font-size: 15px; white-space: pre-line; margin: 14px 0 22px; }
+
+    /* Navigation par sections */
+    .onglets {
+      position: sticky; top: 0; z-index: 5; display: flex; gap: 8px;
+      padding: 10px 0; margin: 0 0 8px; background: var(--fond);
+      overflow-x: auto; scrollbar-width: none;
+    }
+    .onglets::-webkit-scrollbar { display: none; }
+    .onglets a {
+      flex: none; border: 1.5px solid var(--carte-bord); border-radius: 999px;
+      padding: 6px 14px; font-size: 13px; font-weight: 500; color: var(--texte-doux);
+      transition: .2s;
+    }
+    .onglets a:hover, .onglets a.actif { border-color: var(--citron); color: var(--citron); }
+
+    /* Gros boutons verts */
+    .lien-principal {
+      display: flex; align-items: center; justify-content: center; flex-direction: column;
+      min-height: 76px; padding: 14px 20px; margin-bottom: 14px;
+      background: var(--citron); color: var(--noir); border-radius: var(--rayon);
+      text-align: center; font-weight: 600; font-size: 17px; text-transform: uppercase;
+      letter-spacing: .01em; transition: transform .15s, box-shadow .15s;
+    }
+    .lien-principal small { text-transform: none; font-weight: 400; font-size: 13px; opacity: .75; }
+    .lien-principal:hover { transform: translateY(-2px); box-shadow: 0 6px 0 var(--citron-fonce); }
+
+    /* Sections */
+    section { margin-top: 34px; scroll-margin-top: 60px; }
+    .titre-section { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+    .titre-section h2 { font: 700 21px/1.2 "Space Grotesk", sans-serif; white-space: nowrap; }
+    .titre-section span { color: var(--texte-doux); font-size: 13px; text-align: right; }
+
+    /* Cartes ressources / produits */
+    .carte {
+      display: grid; grid-template-columns: 64px 1fr; gap: 16px; align-items: start;
+      background: var(--carte); border: 1.5px solid var(--carte-bord); border-radius: var(--rayon);
+      padding: 16px; margin-bottom: 12px; transition: border-color .2s, transform .15s;
+    }
+    .carte:hover { border-color: var(--citron); transform: translateY(-2px); }
+    .vignette {
+      width: 64px; height: 64px; border-radius: 12px; display: grid; place-items: center;
+      font-size: 30px; background: #2f2f2f;
+    }
+    .carte.payante .vignette { background: var(--violet); }
+    .etiquettes { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 4px; }
+    .etiquette {
+      font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
+      padding: 2px 8px; border-radius: 6px; background: #333; color: var(--texte-doux);
+    }
+    .etiquette.gratuit { background: var(--citron); color: var(--noir); }
+    .etiquette.badge { background: var(--violet-clair); color: var(--violet); }
+    .carte h3 { font-size: 16px; font-weight: 600; line-height: 1.3; }
+    .carte p { color: var(--texte-doux); font-size: 14px; margin-top: 2px; }
+    .carte-pied { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 12px; flex-wrap: wrap; }
+    .prix { font: 700 20px/1 "Space Grotesk", sans-serif; }
+    .prix s { font-size: 14px; font-weight: 500; color: var(--texte-doux); margin-left: 6px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--citron); color: var(--noir); font-weight: 600; font-size: 14px;
+      padding: 9px 16px; border-radius: 10px; border: 0; cursor: pointer;
+    }
+    .carte.payante .btn { background: var(--texte); }
+    .vide { color: var(--texte-doux); font-size: 14px; }
+
+    /* Newsletter */
+    .newsletter {
+      background: var(--violet); border-radius: var(--rayon); padding: 30px 22px; text-align: center;
+    }
+    .newsletter h2 { font: 700 24px/1.2 "Space Grotesk", sans-serif; }
+    .newsletter > p { font-weight: 600; font-size: 16px; margin: 10px 0 20px; }
+    .newsletter input {
+      width: 100%; background: transparent; border: 2px solid #fff; border-radius: 12px;
+      padding: 14px 16px; margin-bottom: 12px; color: #fff; font: 400 16px "Poppins", sans-serif;
+    }
+    .newsletter input::placeholder { color: #b6a6dd; }
+    .newsletter input:focus { outline: none; border-color: var(--citron); }
+    .newsletter button {
+      width: 100%; background: var(--violet-clair); color: var(--noir); border: 0; border-radius: 12px;
+      padding: 15px; font: 500 16px "Poppins", sans-serif; cursor: pointer; margin-top: 4px;
+    }
+    .newsletter button:hover { background: #fff; }
+    .newsletter small { display: block; margin-top: 12px; color: #cfc3ee; font-size: 12px; }
+    .newsletter .merci { font-weight: 600; font-size: 16px; padding: 16px 0 4px; }
+
+    footer { text-align: center; color: #777; font-size: 12px; margin-top: 40px; }
+    footer a { text-decoration: underline; }
+
+    :focus-visible { outline: 2px solid var(--citron); outline-offset: 3px; }
+    @media (max-width: 380px) {
+      .logo { width: 84px; height: 84px; }
+      .logo-texte b { font-size: 22px; }
+      .nom { font-size: 22px; }
+      .carte { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="barre">
+      <a class="btn-gris" href="#newsletter">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+        S'abonner
+      </a>
+      <button class="btn-icone" id="partager" aria-label="Partager la page">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg>
+      </button>
+    </div>
+
+    <header class="profil">
+      <div class="logo" id="logo">
+        <!-- Dépose ton logo dans ce dossier sous le nom logo.png pour l'afficher à la place -->
+        <img src="logo.png" alt="Logo Teesha Studio" onerror="this.remove(); document.getElementById('logo').insertAdjacentHTML('beforeend', '<div class=&quot;logo-texte&quot; aria-label=&quot;Teesha Studio&quot;><b>TEESHA</b><small>STUDIO</small></div>')">
+      </div>
+      <div>
+        <h1 class="nom" id="nom"></h1>
+        <nav class="reseaux" id="reseaux" aria-label="Réseaux sociaux"></nav>
+      </div>
+    </header>
+    <p class="bio" id="bio"></p>
+
+    <div id="liens-principaux"></div>
+
+    <nav class="onglets" id="onglets" aria-label="Sections">
+      <a href="#gratuit">🎁 Gratuit</a>
+      <a href="#boutique">🛍️ Boutique</a>
+      <a href="#newsletter">💌 Newsletter</a>
+    </nav>
+
+    <section id="gratuit">
+      <div class="titre-section"><h2>Ressources gratuites</h2><span>Offertes, pour bien démarrer</span></div>
+      <div id="liste-gratuit"></div>
+    </section>
+
+    <section id="boutique">
+      <div class="titre-section"><h2>Boutique</h2><span>Templates &amp; formations</span></div>
+      <div id="liste-boutique"></div>
+    </section>
+
+    <section id="newsletter">
+      <div class="newsletter" id="bloc-newsletter"></div>
+    </section>
+
+    <footer>
+      <p>© <span id="annee"></span> Teesha Studio · <a id="mentions" href="#">Mentions légales</a></p>
+    </footer>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="contenu.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
