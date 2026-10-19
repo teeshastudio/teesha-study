@@ -11,12 +11,13 @@
 window.TEESHA = {
   profil: {
     nom: "teesha_studio",
-    bio: "Notion · Marketing · Communication\nJe t'aide à lancer ta com' sans te perdre (ni t'épuiser).",
+    bio: "Une com' qui tient la route pour les entrepreneurs et TPE de Guadeloupe.\nPas de blabla, du concret.",
   },
 
   reseaux: [
     { reseau: "instagram", lien: "https://www.instagram.com/teesha_studio/" },
-    { reseau: "tiktok", lien: "https://www.tiktok.com/@teesha_studio" },
+    { reseau: "tiktok", lien: "https://www.tiktok.com/@teesha.studio" },
+    { reseau: "whatsapp", lien: "https://wa.me/590690233622" },
     // { reseau: "linkedin",  lien: "https://www.linkedin.com/in/..." },
     // { reseau: "pinterest", lien: "https://www.pinterest.fr/..." },
     // { reseau: "email",     lien: "mailto:contact@teesha-studio.fr" },
@@ -32,23 +33,30 @@ window.TEESHA = {
   // ou directement le fichier si tu ne demandes pas l'email.
   ressourcesGratuites: [
     {
-      emoji: "✅",
+      // Avec "fichier" : on demande l'email (inscription Brevo), puis on affiche le bouton de téléchargement
       type: "Checklist",
-      titre: "Les 10 erreurs de com' quand on débute",
-      description: "La checklist pour vérifier ton compte en 15 minutes.",
-      bouton: "Je la télécharge",
-      lien: "#",
-      visible: false, // exemple : passe à true une fois rempli
+      titre: "La checklist avant de poster",
+      nomCourt: "la checklist",
+      description: "Un post raté, c'est rarement une question de talent. C'est une case oubliée.",
+      points: [
+        "Visuel, légende, CTA, réglages finaux : tout y est",
+        "À cocher avant chaque publication Insta ou TikTok",
+        "3 pages à imprimer ou garder dans ton téléphone",
+      ],
+      couverture: "checklist-couverture.png",
+      fichier: "checklist-avant-de-poster.pdf",
+      bouton: "Je la reçois gratuitement",
+      visible: true,
     },
-    {
-      emoji: "🗂️",
-      type: "Template Notion",
-      titre: "Mon calendrier éditorial Notion",
-      description: "Planifie tes posts Insta & TikTok au même endroit.",
-      bouton: "Je le récupère",
-      lien: "#",
-      visible: false, // exemple : passe à true une fois rempli
-    },
+    // Lien simple (sans formulaire) : utilise "lien" au lieu de "fichier"
+    // {
+    //   emoji: "🗂️",
+    //   type: "Template Notion",
+    //   titre: "Mon calendrier éditorial Notion",
+    //   description: "Planifie tes posts Insta & TikTok au même endroit.",
+    //   bouton: "Je le récupère",
+    //   lien: "#",
+    // },
   ],
 
   // BOUTIQUE (produits payants)

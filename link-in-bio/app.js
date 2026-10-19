@@ -28,6 +28,7 @@
     tiktok: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 2h-3.4v13.4a2.9 2.9 0 1 1-2.9-2.9c.3 0 .6 0 .9.1V9.1a6.3 6.3 0 1 0 5.4 6.3V8.6a8 8 0 0 0 4.7 1.5V6.7a4.7 4.7 0 0 1-4.7-4.7Z"/></svg>',
     linkedin: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.5 3a2 2 0 1 1 0 4 2 2 0 0 1 0-4ZM3 8.5h3V21H3V8.5Zm5.5 0h2.9v1.7h.1c.4-.8 1.4-1.9 3.1-1.9 3.3 0 3.9 2.2 3.9 5V21h-3v-6.8c0-1.6 0-3.7-2.3-3.7s-2.6 1.8-2.6 3.6V21h-3V8.5Z"/></svg>',
     pinterest: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.6 19.3c-.1-.8-.2-2 0-2.9l1.2-5s-.3-.6-.3-1.5c0-1.4.8-2.4 1.8-2.4.8 0 1.2.6 1.2 1.4 0 .8-.5 2.1-.8 3.2-.2 1 .5 1.8 1.5 1.8 1.8 0 3.2-1.9 3.2-4.6 0-2.4-1.7-4.1-4.2-4.1-2.9 0-4.6 2.2-4.6 4.4 0 .9.3 1.8.8 2.3l.1.4-.3 1.2c0 .2-.2.3-.4.2-1.3-.6-2.1-2.5-2.1-4 0-3.3 2.4-6.3 6.9-6.3 3.6 0 6.4 2.6 6.4 6 0 3.6-2.3 6.5-5.4 6.5-1.1 0-2.1-.6-2.4-1.2l-.7 2.5c-.2.9-.9 2.1-1.3 2.8A10 10 0 1 0 12 2Z"/></svg>',
+    whatsapp: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg>',
     email: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2.5" y="4.5" width="19" height="15" rx="3"/><path d="m3 6 9 7 9-7"/></svg>',
   };
 
@@ -61,7 +62,7 @@
       if (onglet) onglet.hidden = true;
       return;
     }
-    visibles.forEach((i) => cible.append(carte(i, payante)));
+    visibles.forEach((i) => cible.append(i.fichier ? carteLeadMagnet(i) : carte(i, payante)));
   }
 
   // Profil
@@ -80,47 +81,91 @@
     );
   });
 
+  const N = C.newsletter;
+  const lienConfidentialite = C.pied.mentionsLegales && C.pied.mentionsLegales !== "#"
+    ? el("small", {}, el("a", { href: C.pied.mentionsLegales + "#confidentialite" }, "Politique de confidentialité"))
+    : null;
+
+  // Formulaire d'inscription Brevo, réutilisé par la newsletter et les lead magnets
+  function formulaireInscription({ bouton, mentions, apresEnvoi }) {
+    const form = el("form", { class: "inscription", method: "post" },
+      el("input", { type: "text", name: N.champNom, placeholder: "Prénom", autocomplete: "given-name", "aria-label": "Prénom" }),
+      el("input", { type: "email", name: N.champEmail, placeholder: "Email", autocomplete: "email", required: "", "aria-label": "Email" }),
+      el("button", { type: "submit" }, bouton),
+      mentions.map((m) => el("small", {}, m)),
+      lienConfidentialite ? lienConfidentialite.cloneNode(true) : null,
+      // Champs techniques attendus par Brevo (anti-robot + langue)
+      el("input", { type: "text", name: "email_address_check", value: "", hidden: "", tabindex: "-1", autocomplete: "off" }),
+      el("input", { type: "hidden", name: "locale", value: "fr" }),
+      el("input", { type: "hidden", name: "html_type", value: "simple" }),
+    );
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const btn = form.querySelector("button");
+      btn.disabled = true;
+      btn.textContent = "Envoi…";
+      try {
+        if (N.actionFormulaire) {
+          // Brevo ne renvoie pas de réponse lisible depuis une autre page : on envoie et on remercie.
+          // isAjax=1 : même envoi que le formulaire intégré officiel de Brevo
+          const url = N.actionFormulaire + (N.actionFormulaire.includes("?") ? "&" : "?") + "isAjax=1";
+          await fetch(url, { method: "POST", mode: "no-cors", body: new FormData(form) });
+        }
+        form.replaceWith(apresEnvoi());
+      } catch (_) {
+        btn.disabled = false;
+        btn.textContent = bouton;
+        toast("Oups, l'envoi n'a pas marché. Vérifie ta connexion et réessaie.");
+      }
+    });
+    return form;
+  }
+
+  // Lead magnet avec fichier : email demandé, puis bouton de téléchargement
+  function carteLeadMagnet(item) {
+    const zone = el("div", { class: "lm-action" });
+    const ouvrir = el("button", { type: "button", class: "btn btn-large" }, (item.bouton || "Je la reçois") + " →");
+    ouvrir.addEventListener("click", () => {
+      const form = formulaireInscription({
+        bouton: "Recevoir " + (item.nomCourt || "la ressource"),
+        mentions: ["En la recevant, tu rejoins aussi " + N.titre + ", ma newsletter. Désinscription en 1 clic."],
+        apresEnvoi: () => el("div", { class: "lm-merci" },
+          el("p", {}, "C'est à toi ! 🎉"),
+          el("a", { class: "btn btn-large", href: item.fichier, download: "", target: "_blank", rel: "noopener" }, "Télécharger " + (item.nomCourt || "") + " ↓"),
+          el("small", {}, "Imprime-la ou garde-la dans ton téléphone."),
+        ),
+      });
+      zone.replaceChildren(form);
+      form.querySelector("input[type=email]").focus();
+    });
+    zone.append(ouvrir);
+    return el("article", { class: "lead-magnet" },
+      el("div", { class: "lm-haut" },
+        item.couverture ? el("img", { class: "lm-couverture", src: item.couverture, alt: "Aperçu : " + item.titre, loading: "lazy" }) : null,
+        el("div", {},
+          el("div", { class: "etiquettes" }, el("span", { class: "etiquette gratuit" }, "Gratuit"), item.type ? el("span", { class: "etiquette" }, item.type) : null),
+          el("h3", {}, item.titre),
+          item.description ? el("p", {}, item.description) : null,
+        ),
+      ),
+      item.points ? el("ul", { class: "lm-points" }, item.points.map((p) => el("li", {}, p))) : null,
+      zone,
+    );
+  }
+
   liste("liste-gratuit", C.ressourcesGratuites, false);
   liste("liste-boutique", C.boutique, true);
 
   // Newsletter
-  const N = C.newsletter;
-  const form = el("form", { method: "post", action: N.actionFormulaire || null },
-    el("input", { type: "text", name: N.champNom, placeholder: "Prénom", autocomplete: "given-name", "aria-label": "Prénom" }),
-    el("input", { type: "email", name: N.champEmail, placeholder: "Email", autocomplete: "email", required: "", "aria-label": "Email" }),
-    el("button", { type: "submit" }, N.bouton),
-    N.mentionRgpd ? el("small", {}, N.mentionRgpd) : null,
-    C.pied.mentionsLegales && C.pied.mentionsLegales !== "#"
-      ? el("small", {}, el("a", { href: C.pied.mentionsLegales + "#confidentialite" }, "Politique de confidentialité"))
-      : null,
+  $("bloc-newsletter").append(
+    el("h2", {}, N.titre),
+    el("p", {}, N.texte),
+    formulaireInscription({
+      bouton: N.bouton,
+      mentions: N.mentionRgpd ? [N.mentionRgpd] : [],
+      apresEnvoi: () => el("p", { class: "merci" }, "C'est noté ! Bienvenue dans la Safe Place 💌"),
+    }),
   );
-  // Champs techniques attendus par Brevo (anti-robot + langue)
-  form.append(
-    el("input", { type: "text", name: "email_address_check", value: "", hidden: "", tabindex: "-1", autocomplete: "off" }),
-    el("input", { type: "hidden", name: "locale", value: "fr" }),
-    el("input", { type: "hidden", name: "html_type", value: "simple" }),
-  );
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    if (!N.actionFormulaire) {
-      form.replaceWith(el("p", { class: "merci" }, "Merci ! (Formulaire de test : connecte Brevo dans contenu.js)"));
-      return;
-    }
-    const bouton = form.querySelector("button");
-    bouton.disabled = true;
-    bouton.textContent = "Envoi…";
-    try {
-      // Brevo ne renvoie pas de réponse lisible depuis une autre page : on envoie et on remercie
-      // isAjax=1 : même envoi que le formulaire intégré officiel de Brevo
-      await fetch(N.actionFormulaire + (N.actionFormulaire.includes("?") ? "&" : "?") + "isAjax=1", { method: "POST", mode: "no-cors", body: new FormData(form) });
-      form.replaceWith(el("p", { class: "merci" }, "C'est noté ! Vérifie ta boîte mail pour confirmer ton inscription 💌"));
-    } catch (_) {
-      bouton.disabled = false;
-      bouton.textContent = N.bouton;
-      toast("Oups, l'envoi n'a pas marché. Vérifie ta connexion et réessaie.");
-    }
-  });
-  $("bloc-newsletter").append(el("h2", {}, N.titre), el("p", {}, N.texte), form);
 
   // Pied de page
   $("annee").textContent = new Date().getFullYear();

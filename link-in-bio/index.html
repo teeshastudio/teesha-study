@@ -149,6 +149,36 @@
     .carte.payante .btn { background: var(--texte); }
     .vide { color: var(--texte-doux); font-size: 14px; }
 
+
+    /* Lead magnet mis en avant */
+    .lead-magnet {
+      background: var(--carte); border: 2px solid var(--citron); border-radius: var(--rayon);
+      padding: 18px; margin-bottom: 12px;
+    }
+    .lm-haut { display: grid; grid-template-columns: 96px 1fr; gap: 16px; align-items: start; }
+    .lm-couverture { width: 96px; border-radius: 6px; box-shadow: 0 6px 18px rgba(0,0,0,.4); transform: rotate(-3deg); background: #fff; }
+    .lead-magnet h3 { font: 700 19px/1.25 "Space Grotesk", sans-serif; margin: 2px 0 4px; }
+    .lead-magnet p { color: var(--texte-doux); font-size: 14px; }
+    .lm-points { list-style: none; margin: 14px 0 0; display: grid; gap: 6px; font-size: 14px; }
+    .lm-points li::before { content: "✓"; color: var(--citron); font-weight: 700; margin-right: 8px; }
+    .lm-action { margin-top: 16px; }
+    .btn-large { width: 100%; justify-content: center; padding: 14px 18px; font-size: 15px; border-radius: 12px; }
+    .lead-magnet .inscription input {
+      width: 100%; background: transparent; border: 2px solid var(--carte-bord); border-radius: 12px;
+      padding: 13px 16px; margin-bottom: 10px; color: var(--texte); font: 400 16px "Poppins", sans-serif;
+    }
+    .lead-magnet .inscription input:focus { outline: none; border-color: var(--citron); }
+    .lead-magnet .inscription button {
+      width: 100%; background: var(--citron); color: var(--noir); border: 0; border-radius: 12px;
+      padding: 14px; font: 600 15px "Poppins", sans-serif; cursor: pointer;
+    }
+    .lead-magnet .inscription small { display: block; margin-top: 10px; color: var(--texte-doux); font-size: 12px; text-align: center; }
+    .lead-magnet .inscription small a { color: inherit; text-decoration: underline; }
+    .lm-merci { text-align: center; display: grid; gap: 10px; }
+    .lm-merci p { color: var(--texte); font-weight: 600; font-size: 17px; }
+    .lm-merci small { color: var(--texte-doux); font-size: 12px; }
+    @media (max-width: 380px) { .lm-haut { grid-template-columns: 72px 1fr; } .lm-couverture { width: 72px; } }
+
     /* Newsletter */
     .newsletter {
       background: var(--violet); border-radius: var(--rayon); padding: 30px 22px; text-align: center;
