@@ -83,18 +83,28 @@ Bouton : **Accéder à mon Instagram** → https://www.instagram.com/teesha_stud
 
 ---
 
-## Lien avec le CRM Clients (Notion)
+## Lien avec le CRM (Notion)
 
-Avec l'intégration Tally → Notion, chaque réponse crée une fiche dans la base `Clients` :
+Base **Contacts** du CRM TEESHA STUDIO (TEESHA STUDIO - DASHBOARD → CRM TEESHA STUDIO).
+Les options des listes sont écrites **exactement** comme dans le formulaire : si tu changes un libellé dans Tally, change-le aussi dans Notion.
 
-| Champ du formulaire | Propriété Notion |
-|---------------------|------------------|
-| Nom et prénom | Nom (titre) |
+| Question du formulaire | Propriété Notion (Contacts) |
+|------------------------|-----------------------------|
+| Nom et prénom | Nom et prénom (titre) |
 | Adresse e-mail | Email |
+| Ton Instagram | Instagram |
+| Quelle est ton activité / ta niche ? | Activité / niche |
+| Depuis combien de temps es-tu lancée ? | Lancée depuis |
+| Quel est ton besoin aujourd'hui ? | Besoin |
+| Explique-moi ton projet… | Projet |
+| Quel est TON objectif principal ? | Objectif principal |
+| Quels sont tes plus gros blocages ? | Blocages |
+| Quel est ton budget ? | Budget |
+| As-tu une deadline ? | Deadline |
+| Fichiers | Fichiers reçus |
+| Comment préfères-tu que je te contacte ? | Contact préféré |
 | Où m'as-tu découverte ? | Source |
-| *(automatique)* | Statut = `Lead` |
-| *(date d'envoi)* | Date premier contact |
-| Toutes les autres réponses | Notes (ou propriétés dédiées : Besoin, Budget, Objectif…) |
+| *(automatique)* | Étape = `Nouvelle demande`, Reçue le = date d'envoi |
 
 ---
 
@@ -117,11 +127,10 @@ Avec l'intégration Tally → Notion, chaque réponse crée une fiche dans la ba
 ### 2. Regrouper les réponses dans Notion
 
 1. Tally → onglet **Integrations** → **Notion** → *Connect*.
-2. Choisir la base **CRM Clients**.
-3. Associer les champs (tableau « Lien avec le CRM Clients » ci-dessus).
-4. Ajouter dans Notion les propriétés manquantes : `Besoin` (multi-sélect), `Budget` (sélect), `Objectif` (sélect), `Contact préféré` (sélect), `Instagram` (URL).
-5. Créer une vue **Nouvelles demandes** : filtre `Statut = Lead`, tri par date décroissante.
-6. Tally → **Settings** → *Self email notifications* activé, pour être prévenue à chaque envoi.
+2. Choisir la base **Contacts** (CRM TEESHA STUDIO).
+3. Associer chaque question à sa propriété (tableau « Lien avec le CRM » ci-dessus).
+4. Envoyer une réponse test et vérifier qu'elle apparaît dans la vue **Nouvelles demandes**.
+5. Tally → **Settings** → *Self email notifications* activé, pour être prévenue à chaque envoi.
 
 ### 3. Publier
 
