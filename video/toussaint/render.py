@@ -3,14 +3,17 @@
 Usage: python3 render.py <work_dir> <fonts_dir> <src.mov> <out_video.mp4> [preview_seconds]
 Reads graded frames from ffmpeg, composites overlays, writes video-only MP4.
 """
-import json, math, subprocess, sys
+import json, math, os, subprocess, sys
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
 WORK, FONTS, SRC, OUT = sys.argv[1:5]
 LIMIT = float(sys.argv[5]) if len(sys.argv) > 5 else None
 W, H, FPS = 1080, 1920, 30
-GRADE = open(f"{WORK}/grade.txt").read().strip()
+# KIT=<dir>: export an editable CapCut kit (PNGs, SRT, transitions) and render a
+# clean base video (zooms only, original colours, no overlays)
+KIT = os.environ.get("KIT")
+GRADE = "null" if KIT else open(f"{WORK}/grade.txt").read().strip()
 
 # Brand palette (charte Teesha Studio)
 OFF = (250, 250, 247, 255)
@@ -379,6 +382,51 @@ def transition_overlay(t):
     return None
 
 
+# ---------------------------------------------------------------- CapCut kit
+def tc(t, sep=","):
+    ms = int(round(t * 1000))
+    return f"{ms // 3600000:02d}:{ms // 60000 % 60:02d}:{ms // 1000 % 60:02d}{sep}{ms % 1000:03d}"
+
+
+if KIT:
+    names = ["accroche_3_idees", "idee_01_horaires", "idee_02_hommage", "idee_03_services",
+             "barre_codes_promo", "barre_offres", "barre_fete_commerciale", "pas_la_pour_ca",
+             "coche_fleuriste", "coche_bougies", "coche_tombes", "astuce_jusqua_quand",
+             "a_toi_de_jouer", "logo_teesha_studio"]
+    os.makedirs(f"{KIT}/elements", exist_ok=True)
+    os.makedirs(f"{KIT}/transitions", exist_ok=True)
+    rows = []
+    for k, (el, name) in enumerate(zip(elements, names)):
+        img = el["img"]
+        if "strike" in el:
+            img = img.copy()
+            d = ImageDraw.Draw(img)
+            ym = img.height // 2 - 4
+            d.line([(48, ym), (img.width - 48, ym)], fill=VIOLET, width=7)
+        fn = f"{k + 1:02d}_{name}.png"
+        img.save(f"{KIT}/elements/{fn}")
+        t1 = min(el["t1"], 47.6)
+        rows.append(f"{fn:<34} {tc(el['t0'], '.')[3:]} -> {tc(t1, '.')[3:]}   position: x={el['x']} y={el['y']} (sur 1080x1920)")
+    open(f"{KIT}/elements/TIMINGS.txt", "w").write(
+        "Element                            Debut      -> Fin          Position\n" + "\n".join(rows) + "\n")
+    with open(f"{KIT}/sous-titres.srt", "w") as f:
+        for gi, g in enumerate(groups):
+            txt = " ".join(clean(w["w"]) for w in g["words"])
+            f.write(f"{gi + 1}\n{tc(g['s'])} --> {tc(g['e'])}\n{txt}\n\n")
+    for k, (tcut, col) in enumerate(TRANSITIONS):
+        frames = []
+        for i in range(int(0.4 * FPS) + 1):
+            ov = transition_overlay(tcut - 0.20 + i / FPS) or Image.new("RGBA", (W, H), (0, 0, 0, 0))
+            frames.append(ov.tobytes())
+        fn = f"{KIT}/transitions/transition_{k + 1}_{tc(tcut - 0.20, '.')[3:8].replace(':', 'm')}s.mov"
+        subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "rgba", "-s", f"{W}x{H}",
+                        "-r", str(FPS), "-i", "-", "-c:v", "prores_ks", "-profile:v", "4444",
+                        "-pix_fmt", "yuva444p10le", fn], input=b"".join(frames), check=True)
+    elements = []
+    groups = []
+    TRANSITIONS = []
+
+
 # ---------------------------------------------------------------- main loop
 dec = subprocess.Popen(["ffmpeg", "-v", "error", "-i", SRC, "-vf", GRADE, "-f", "rawvideo",
                         "-pix_fmt", "rgb24", "-"], stdout=subprocess.PIPE)
@@ -400,8 +448,9 @@ while True:
     frame = zoom_frame(frame, zoom_at(t))
 
     # progress bar
-    d = ImageDraw.Draw(frame)
-    d.rectangle([0, 0, int(W * t / total), 9], fill=LIME)
+    if not KIT:
+        d = ImageDraw.Draw(frame)
+        d.rectangle([0, 0, int(W * t / total), 9], fill=LIME)
 
     for el in elements:
         r = anim_frame(el, t)
