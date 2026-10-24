@@ -1,0 +1,1 @@
+hqdn3d=1.2:1.2:5:5,colortemperature=temperature=7300:mix=0.6,huesaturation=saturation=-0.35:colors=y:strength=2,eq=contrast=1.16:brightness=-0.03:saturation=1.04:gamma=0.96,colorbalance=rs=-0.04:bs=0.05:rh=0.01:bh=0.0,curves=master='0/0.015 0.2/0.13 0.5/0.47 0.8/0.85 1/0.97',vignette=angle=PI/3.6:x0=w/2:y0=h*0.40,unsharp=5:5:0.5
