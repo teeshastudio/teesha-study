@@ -69,7 +69,7 @@ for gi, g in enumerate(groups):
     groups[gi] = {"words": g, "s": s, "e": e}
 
 # ---------------------------------------------------------------- drawing
-F = ImageFont.truetype(FONT, int(70 * K))
+F = ImageFont.truetype(FONT, int(60 * K))
 F.set_variation_by_axes([850])
 _cache = {}
 
