@@ -28,6 +28,21 @@ window.TEESHA = {
     { titre: "Premier contact — Teesha Studio", sousTitre: "Parlons de ton projet", lien: "https://formulairets.netlify.app/" },
   ],
 
+  // Bloc portfolio (sous les gros boutons verts)
+  // apercus : 3 images de projets déposées dans ce dossier, ex. ["projet-1.jpg", "projet-2.jpg", "projet-3.jpg"]
+  portfolio: {
+    titre: "Mon portfolio",
+    description: "Identités visuelles, réseaux sociaux, supports de com' : découvre mes réalisations.",
+    bouton: "Voir mes réalisations",
+    lien: "https://portfolio-teeshastudio.netlify.app/",
+    apercus: [],
+  },
+
+  // Boutons secondaires (plus discrets)
+  liensSecondaires: [
+    { icone: "🌐", titre: "Découvrir mon site", lien: "https://teeshastudiogp.netlify.app/" },
+  ],
+
   // RESSOURCES GRATUITES (lead magnets)
   // lien = ta page d'inscription (Systeme.io, MailerLite, Brevo, Kit...)
   // ou directement le fichier si tu ne demandes pas l'email.

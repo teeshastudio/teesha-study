@@ -111,6 +111,25 @@
     .lien-principal small { text-transform: none; font-weight: 400; font-size: 13px; opacity: .75; }
     .lien-principal:hover { transform: translateY(-2px); box-shadow: 0 6px 0 var(--citron-fonce); }
 
+
+    /* Portfolio */
+    .portfolio {
+      display: block; background: var(--violet); border-radius: var(--rayon);
+      padding: 18px; margin-bottom: 12px; transition: transform .15s;
+    }
+    .portfolio:hover { transform: translateY(-2px); }
+    .portfolio-apercus { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 14px; }
+    .portfolio-apercus img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 10px; background: #3d2276; }
+    .portfolio h2 { font: 700 20px/1.2 "Space Grotesk", sans-serif; }
+    .portfolio p { color: #ddd3f5; font-size: 14px; margin: 4px 0 14px; }
+    .portfolio .btn { background: var(--violet-clair); color: var(--noir); }
+    .lien-secondaire {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      border: 1.5px solid var(--carte-bord); border-radius: var(--rayon); padding: 14px 18px; margin-bottom: 12px;
+      font-weight: 500; font-size: 15px; transition: border-color .2s, color .2s;
+    }
+    .lien-secondaire:hover { border-color: var(--citron); color: var(--citron); }
+
     /* Sections */
     section { margin-top: 34px; scroll-margin-top: 60px; }
     .titre-section { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
@@ -237,6 +256,8 @@
     <p class="bio" id="bio"></p>
 
     <div id="liens-principaux"></div>
+    <div id="portfolio"></div>
+    <div id="liens-secondaires"></div>
 
     <nav class="onglets" id="onglets" aria-label="Sections">
       <a href="#gratuit">🎁 Gratuit</a>

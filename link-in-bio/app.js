@@ -81,6 +81,23 @@
     );
   });
 
+  // Portfolio
+  const P = C.portfolio;
+  if (P && P.lien) {
+    const apercus = (P.apercus || []).slice(0, 3);
+    $("portfolio").append(el("a", { class: "portfolio", ...attrsLien(P.lien) },
+      apercus.length ? el("div", { class: "portfolio-apercus" }, apercus.map((src) => el("img", { src, alt: "", loading: "lazy" }))) : null,
+      el("h2", {}, P.titre),
+      P.description ? el("p", {}, P.description) : null,
+      el("span", { class: "btn" }, P.bouton + " →"),
+    ));
+  }
+
+  // Boutons secondaires
+  (C.liensSecondaires || []).forEach((l) => {
+    $("liens-secondaires").append(el("a", { class: "lien-secondaire", ...attrsLien(l.lien) }, l.icone ? el("span", { "aria-hidden": "true" }, l.icone) : null, l.titre));
+  });
+
   const N = C.newsletter;
   const lienConfidentialite = C.pied.mentionsLegales && C.pied.mentionsLegales !== "#"
     ? el("small", {}, el("a", { href: C.pied.mentionsLegales + "#confidentialite" }, "Politique de confidentialité"))
