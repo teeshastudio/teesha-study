@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Teesha Studio – Design, contenu & coaching pour ta marque</title>
+<meta name="description" content="Teesha Studio : templates Canva, branding, création de contenu Instagram et coaching pour faire rayonner ta marque en ligne.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FBF5EE; --sand:#F3E6D8; --paper:#FFFFFF;
+    --ink:#2B1D16; --muted:#7A6659; --line:#E8DACB;
+    --cocoa:#5B3A29; --caramel:#B5764A; --blush:#E9B9A3; --gold:#D9B26F;
+    --grad:linear-gradient(120deg,#4A2E20,#9A5F3C);
+    --radius:20px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--cream);color:var(--ink);font:400 16px/1.6 Inter,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{width:min(1120px,100% - 32px);margin-inline:auto}
+  h1,h2,h3{font-family:Fraunces,serif;font-weight:700;line-height:1.08;letter-spacing:-.01em}
+  .hand{font-family:Caveat,cursive;font-weight:700;color:var(--caramel);letter-spacing:0}
+  .hl{background:linear-gradient(transparent 60%,var(--blush) 60%);font-weight:600;color:var(--ink)}
+  .eyebrow{font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--caramel)}
+  /* À remplir : texte provisoire à remplacer */
+  .todo{outline:1.5px dashed var(--caramel);outline-offset:2px;border-radius:4px}
+
+  .btn{display:inline-flex;align-items:center;gap:.5rem;background:var(--grad);color:#fff;font-weight:600;padding:.85rem 1.5rem;border-radius:999px;transition:transform .2s,box-shadow .2s;box-shadow:0 8px 20px -10px rgba(74,46,32,.6)}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 14px 26px -12px rgba(74,46,32,.7)}
+  .btn.ghost{background:transparent;color:var(--cocoa);border:1.5px solid var(--cocoa);box-shadow:none}
+
+  /* NAV */
+  header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  nav{display:flex;align-items:center;justify-content:space-between;height:68px;gap:1rem}
+  .logo{font-family:Fraunces,serif;font-size:1.35rem;font-weight:700;letter-spacing:-.02em}
+  .logo em{font-family:Caveat,cursive;font-style:normal;color:var(--caramel);font-size:1.6rem;margin-left:2px}
+  .links{display:flex;gap:2rem;font-size:.92rem;font-weight:500;color:var(--muted)}
+  .links a:hover{color:var(--ink)}
+  nav .btn{padding:.65rem 1.2rem;font-size:.9rem}
+
+  /* HERO */
+  .hero{padding:72px 0 88px;overflow-x:clip}
+  .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
+  .hero h1{font-size:clamp(2.4rem,5vw,3.9rem)}
+  .hero h1 .hand{display:block;font-size:1.15em;line-height:1;margin-top:.1em}
+  .hero .sub{margin:22px 0 34px;font-size:1.12rem;color:var(--muted);max-width:34ch}
+  .paths{display:grid;gap:12px;margin-top:14px}
+  .path{display:flex;align-items:center;gap:16px;background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:16px 20px;transition:transform .2s,border-color .2s,box-shadow .2s}
+  .path:hover{transform:translateX(4px);border-color:var(--caramel);box-shadow:0 10px 24px -18px rgba(74,46,32,.6)}
+  .num{flex:none;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-weight:700;color:#fff}
+  .n1{background:var(--gold);color:var(--ink)} .n2{background:var(--caramel)} .n3{background:var(--cocoa)}
+  .path strong{display:block;font-size:1.02rem}
+  .path div span{font-size:.88rem;color:var(--muted)}
+  .path .arr{margin-left:auto;color:var(--caramel);font-size:1.2rem}
+
+  .polaroid{position:relative;width:100%;max-width:400px;margin-inline:auto;background:#fff;padding:14px 14px 56px;border-radius:14px;transform:rotate(2.5deg);box-shadow:0 30px 60px -30px rgba(74,46,32,.55)}
+  .polaroid::before{content:"";position:absolute;top:-16px;left:50%;width:130px;height:34px;transform:translateX(-50%) rotate(-3deg);background:rgba(233,185,163,.7)}
+  .photo{aspect-ratio:4/5;border-radius:8px;background:linear-gradient(160deg,var(--sand),var(--blush));display:grid;place-items:center;text-align:center;color:var(--cocoa);font-size:.9rem;padding:20px}
+  .photo b{display:block;font-family:Caveat,cursive;font-size:2.2rem;line-height:1}
+  .polaroid figcaption{position:absolute;bottom:14px;left:0;right:0;text-align:center;font-family:Caveat,cursive;font-size:1.5rem;color:var(--cocoa)}
+  .badge{position:absolute;background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px 14px;font-size:.82rem;box-shadow:0 12px 26px -16px rgba(0,0,0,.35);transform:rotate(-2.5deg);white-space:nowrap}
+  .badge b{display:block;font-size:.9rem}
+  .badge small{color:var(--muted)}
+  .b1{top:48px;right:-40px} .b2{bottom:110px;left:-52px}
+
+  /* MARQUEE */
+  .marquee{background:var(--grad);color:#fff;overflow:hidden;padding:18px 0}
+  .track{display:flex;gap:2.5rem;width:max-content;animation:scroll 32s linear infinite;font-family:Fraunces,serif;font-size:1.35rem;white-space:nowrap}
+  .track span:nth-child(even){color:var(--gold)}
+  @keyframes scroll{to{transform:translateX(-50%)}}
+  @media (prefers-reduced-motion:reduce){.track{animation:none}}
+
+  section.block{padding:96px 0}
+  .head{text-align:center;max-width:640px;margin:0 auto 52px}
+  .head h2{font-size:clamp(2rem,4vw,2.9rem);margin-top:10px}
+  .head p{color:var(--muted);margin-top:14px}
+
+  /* ABOUT */
+  .about{background:var(--paper)}
+  .about-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .step{background:var(--cream);border-radius:var(--radius);padding:28px;border:1px solid var(--line)}
+  .step .eyebrow{display:block;margin-bottom:10px}
+  .step p{color:var(--muted)}
+  .quote{text-align:center;margin-top:44px;font-family:Caveat,cursive;font-size:1.9rem;color:var(--cocoa)}
+
+  /* OFFERS */
+  .tabs{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:36px}
+  .tabs a{padding:.55rem 1.1rem;border-radius:999px;border:1px solid var(--line);background:#fff;font-size:.9rem;font-weight:500}
+  .tabs a:hover{border-color:var(--caramel)}
+  .family{margin-top:64px}
+  .family:first-of-type{margin-top:0}
+  .family-title{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+  .family-title .num{width:36px;height:36px;font-size:.9rem}
+  .family-title h3{font-size:1.6rem}
+  .family-title p{color:var(--muted);font-size:.95rem}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .card{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:28px;display:flex;flex-direction:column;gap:14px;transition:transform .2s,box-shadow .2s}
+  .card:hover{transform:translateY(-4px);box-shadow:0 22px 40px -28px rgba(74,46,32,.6)}
+  .card .ico{font-size:1.8rem}
+  .card h4{font-family:Fraunces,serif;font-size:1.3rem}
+  .card p{color:var(--muted);font-size:.95rem}
+  .card ul{list-style:none;display:grid;gap:6px;font-size:.92rem}
+  .card li::before{content:"✶";color:var(--caramel);margin-right:8px}
+  .price{margin-top:auto;padding-top:8px;font-family:Fraunces,serif;font-size:1.7rem;font-weight:700}
+  .price small{font-family:Inter,sans-serif;font-size:.8rem;font-weight:500;color:var(--muted)}
+  .card .btn{justify-content:center}
+  .card.featured{background:var(--grad);color:#fff;border:none}
+  .card.featured p,.card.featured small{color:#F3E2D4}
+  .card.featured li::before{color:var(--gold)}
+  .card.featured .btn{background:#fff;color:var(--cocoa)}
+  .tag{position:absolute;top:-12px;right:20px;background:var(--gold);color:var(--ink);font-size:.75rem;font-weight:700;padding:5px 12px;border-radius:999px}
+
+  /* CTA */
+  .cta{background:var(--sand);border-radius:28px;padding:64px 32px;text-align:center}
+  .cta h2{font-size:clamp(1.9rem,4vw,2.8rem)}
+  .cta p{color:var(--muted);margin:14px auto 28px;max-width:46ch}
+  .cta .row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+  footer{padding:48px 0 40px;text-align:center;color:var(--muted);font-size:.88rem}
+  footer .verse{font-style:italic;max-width:52ch;margin:0 auto 18px;color:var(--cocoa)}
+  footer .social{display:flex;gap:18px;justify-content:center;margin-bottom:16px;font-weight:600;color:var(--ink)}
+
+  @media (max-width:900px){
+    .hero-grid{grid-template-columns:1fr;gap:64px}
+    .links{display:none}
+    .about-grid,.cards{grid-template-columns:1fr}
+    .b1{right:-8px} .b2{left:-8px}
+    section.block{padding:72px 0}
+  }
+  @media (max-width:480px){
+    nav .btn{padding:.55rem .9rem;font-size:.82rem}
+    .badge{font-size:.75rem}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <a href="#" class="logo">teesha<em>studio</em></a>
+    <div class="links">
+      <a href="#boutique">Boutique</a>
+      <a href="#design">Design</a>
+      <a href="#coaching">Coaching</a>
+    </div>
+    <a href="#contact" class="btn">Me contacter</a>
+  </nav>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <h1>Donne à ta marque
+          <span class="hand">l'image qu'elle mérite&nbsp;✨</span></h1>
+        <p class="sub">Templates, design et coaching pour <span class="hl">rayonner sur les réseaux</span> sans t'épuiser.</p>
+
+        <p class="eyebrow">De quoi as-tu besoin aujourd'hui ?</p>
+        <div class="paths">
+          <a class="path" href="#boutique">
+            <span class="num n1">1</span>
+            <div><strong>Des outils prêts à l'emploi</strong><span>Templates Canva, packs & guides PDF</span></div>
+            <span class="arr">→</span>
+          </a>
+          <a class="path" href="#design">
+            <span class="num n2">2</span>
+            <div><strong>Qu'on crée pour moi</strong><span>Branding, contenu Instagram, community management</span></div>
+            <span class="arr">→</span>
+          </a>
+          <a class="path" href="#coaching">
+            <span class="num n3">3</span>
+            <div><strong>Être accompagnée</strong><span>Session unique, coaching 1:1 ou accompagnement complet</span></div>
+            <span class="arr">→</span>
+          </a>
+        </div>
+      </div>
+
+      <figure class="polaroid">
+        <!-- Remplace ce bloc par : <img class="photo" src="images/liyah.jpg" alt="Liyah, fondatrice de Teesha Studio"> -->
+        <div class="photo"><div><b>Ta photo ici</b>format portrait 4:5</div></div>
+        <figcaption>Liyah 🤍</figcaption>
+        <div class="badge b1"><b>🎨 Templates Canva</b><small>prêts à personnaliser</small></div>
+        <div class="badge b2"><b>📱 @teesha_studio</b><small>conseils gratuits chaque semaine</small></div>
+      </figure>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee" aria-hidden="true">
+    <div class="track">
+      <span>Une marque qui te ressemble</span><span>✶</span><span>Du contenu qui attire</span><span>✶</span><span>Des templates clés en main</span><span>✶</span><span>Un accompagnement sur-mesure</span><span>✶</span>
+      <span>Une marque qui te ressemble</span><span>✶</span><span>Du contenu qui attire</span><span>✶</span><span>Des templates clés en main</span><span>✶</span><span>Un accompagnement sur-mesure</span><span>✶</span>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section class="block about" id="apropos">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Qui suis-je ?</p>
+        <h2>Hello, moi c'est <span class="hand">Liyah !</span></h2>
+      </div>
+      <div class="about-grid">
+        <div class="step">
+          <span class="eyebrow">Le déclic</span>
+          <p class="todo">Raconte ici ce qui t'a donné envie de créer Teesha Studio, en 2-3 phrases.</p>
+        </div>
+        <div class="step">
+          <span class="eyebrow">Le parcours</span>
+          <p class="todo">Ton expérience : design, réseaux sociaux, clientes accompagnées, un chiffre clé si tu en as un.</p>
+        </div>
+        <div class="step">
+          <span class="eyebrow">Aujourd'hui</span>
+          <p>J'aide les entrepreneuses à avoir une image pro et un contenu qui leur ressemble, avec des outils simples, du design sur-mesure et un vrai accompagnement.</p>
+        </div>
+      </div>
+      <p class="quote">« Recommande tes œuvres à l'Éternel, et tes projets réussiront. » · Proverbes 16:3</p>
+    </div>
+  </section>
+
+  <!-- OFFERS -->
+  <section class="block" id="offres">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">3 façons de travailler ensemble</p>
+        <h2>Choisis ton chemin, <span class="hand">je m'occupe du reste !</span></h2>
+      </div>
+      <div class="tabs">
+        <a href="#boutique">🛍️ Boutique</a><a href="#design">🎨 Design</a><a href="#coaching">🤝 Coaching</a>
+      </div>
+
+      <div class="family" id="boutique">
+        <div class="family-title"><span class="num n1">1</span><div><h3>Boutique digitale</h3><p>Des outils à télécharger et utiliser tout de suite.</p></div></div>
+        <div class="cards">
+          <article class="card">
+            <span class="ico">🎨</span><h4>Templates Canva</h4>
+            <p>Des posts, stories et carrousels au design pro, à personnaliser en quelques clics.</p>
+            <ul><li>Modifiables sur Canva gratuit</li><li>Accès immédiat</li></ul>
+            <div class="price todo">XX € <small>accès à vie</small></div>
+            <a href="#" class="btn">Je les veux</a>
+          </article>
+          <article class="card featured">
+            <span class="tag">Meilleure offre</span>
+            <span class="ico">📦</span><h4>Packs</h4>
+            <p>Plusieurs produits réunis pour avancer plus vite, à prix réduit.</p>
+            <ul><li>Templates + guides</li><li>Économie vs à l'unité</li></ul>
+            <div class="price todo">XX € <small>accès à vie</small></div>
+            <a href="#" class="btn">Je prends le pack</a>
+          </article>
+          <article class="card">
+            <span class="ico">📚</span><h4>Guides PDF</h4>
+            <p>Des méthodes pas à pas pour gagner en clarté sur ta marque et ton contenu.</p>
+            <ul><li>Concrets et actionnables</li><li>À lire à ton rythme</li></ul>
+            <div class="price todo">XX €</div>
+            <a href="#" class="btn">Je télécharge</a>
+          </article>
+        </div>
+      </div>
+
+      <div class="family" id="design">
+        <div class="family-title"><span class="num n2">2</span><div><h3>Prestations design</h3><p>Je crée pour toi, tu te concentres sur ton activité.</p></div></div>
+        <div class="cards">
+          <article class="card">
+            <span class="ico">✒️</span><h4>Branding</h4>
+            <p>Logo et identité visuelle complète : couleurs, typos, univers.</p>
+            <ul><li>Logo + déclinaisons</li><li>Charte graphique</li></ul>
+            <div class="price">Sur devis</div>
+            <a href="#contact" class="btn">Parler de mon projet</a>
+          </article>
+          <article class="card">
+            <span class="ico">📱</span><h4>Contenu Instagram</h4>
+            <p>Des visuels et carrousels cohérents avec ton image, prêts à publier.</p>
+            <ul><li>Posts, carrousels, stories</li><li>À ton image</li></ul>
+            <div class="price">Sur devis</div>
+            <a href="#contact" class="btn">Parler de mon projet</a>
+          </article>
+          <article class="card">
+            <span class="ico">💬</span><h4>Community management</h4>
+            <p>Je gère ton compte pour que tu restes présente sans y passer tes journées.</p>
+            <ul><li>Planification & publication</li><li>Suivi et ajustements</li></ul>
+            <div class="price">Sur devis</div>
+            <a href="#contact" class="btn">Parler de mon projet</a>
+          </article>
+        </div>
+      </div>
+
+      <div class="family" id="coaching">
+        <div class="family-title"><span class="num n3">3</span><div><h3>Coaching & accompagnement</h3><p>On avance ensemble, à ton rythme.</p></div></div>
+        <div class="cards">
+          <article class="card">
+            <span class="ico">⚡</span><h4>Session unique</h4>
+            <p>Un appel pour débloquer une question précise et repartir avec un plan clair.</p>
+            <ul><li>Visio 1:1</li><li>Plan d'action</li></ul>
+            <div class="price todo">XX €</div>
+            <a href="#" class="btn">Je réserve</a>
+          </article>
+          <article class="card featured">
+            <span class="ico">🤝</span><h4>Coaching 1:1</h4>
+            <p>Un suivi régulier pour construire ta marque et ta stratégie de contenu.</p>
+            <ul><li>Plusieurs séances</li><li>Échanges entre les séances</li></ul>
+            <div class="price todo">XX €</div>
+            <a href="#contact" class="btn">Je candidate</a>
+          </article>
+          <article class="card">
+            <span class="ico">🌟</span><h4>Accompagnement complet</h4>
+            <p>Coaching + création : on construit ton image et ton contenu de A à Z.</p>
+            <ul><li>Stratégie + design</li><li>Suivi sur-mesure</li></ul>
+            <div class="price">Sur candidature</div>
+            <a href="#contact" class="btn">Je candidate</a>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="wrap" id="contact" style="padding-bottom:40px">
+    <div class="cta">
+      <p class="eyebrow">On en parle ?</p>
+      <h2>Parle-moi de <span class="hand">ton projet</span></h2>
+      <p>Remplis le petit formulaire : je lis tout et je te réponds rapidement 🤍</p>
+      <div class="row">
+        <a href="#" class="btn todo">Remplir le formulaire</a>
+        <a href="https://www.instagram.com/teesha_studio/" class="btn ghost" target="_blank" rel="noopener">@teesha_studio</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="social"><a href="https://www.instagram.com/teesha_studio/" target="_blank" rel="noopener">Instagram</a></div>
+    <p>© 2026 Teesha Studio · Mentions légales · CGV</p>
+  </div>
+</footer>
+
+</body>
+</html>
